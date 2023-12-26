@@ -13,6 +13,8 @@ struct Voter:
 struct Proposal:
     id: felt
     vote_count: felt
+    description: felt
+    metadata: felt
 
 # Main contract class
 @contract_interface
