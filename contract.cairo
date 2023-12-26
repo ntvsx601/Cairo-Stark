@@ -126,5 +126,25 @@ func vote{syscall_ptr : felt*, range_check_ptr}(voter_id: felt, proposal_id: fel
     ...
 
 func tally_votes{syscall_ptr : felt*, range_check_ptr}() -> (winning_proposal_id: felt):
-    # Implementation for tallying votes and returning the winning proposal
-    ...
+    let winning_proposal_id = 0
+    let highest_vote_count = 0
+
+   let (current_time) = get_current_timestamp()
+
+    # Iterate over all proposals to find the one with the highest votes
+    # Assuming a pre-defined range of proposal IDs for demonstration
+    for proposal_id in range(1, 100):
+        let (proposal) = proposals.read(proposal_id=proposal_id)
+
+       # Check if the voting deadline for the proposal has passed
+       if proposal.deadline <= current_time:
+            if proposal.vote_count > highest_vote_count:
+                highest_vote_count = proposal.vote_count
+                winning_proposal_id = proposal_id
+
+    return (winning_proposal_id,)
+
++func get_current_timestamp() -> (timestamp: felt):
+   # Logic to obtain the current timestamp
+   # Placeholder for demonstration purposes
+   return (20230320,)  # YYYYMMDD format
