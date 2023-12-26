@@ -3,6 +3,9 @@ from starkware.cairo.common.alloc import alloc
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.serialize import serialize_word
 
+# Import the proposal_manager module
+from proposal_manager import create_proposal, update_vote_count, get_proposal_details
+
 # Declare the Struct for a Voter
 struct Voter:
     is_registered: felt
@@ -37,30 +40,10 @@ end
 func voters(voter_id: felt) -> (res: Voter):
     ...
 
-@storage_var
-func proposals(proposal_id: felt) -> (res: Proposal):
-    ...
 
 
-
-func create_proposal{syscall_ptr : felt*, range_check_ptr}(proposal_id: felt, description: felt, deadline: felt):
-    # Check if the proposal already exists
-    let (proposal) = proposals.read(proposal_id=proposal_id)
-    if proposal.id != 0:
-        return ()
-
-   # Validate the deadline
-   if not is_valid_deadline(deadline):
-       # Handle invalid deadline case
-       return ()
-
-    # Create the proposal
-    proposals.write(proposal_id=proposal_id, value=Proposal(
-        id=proposal_id,
-        vote_count=0,
-        description=description,
-        deadline=deadline,
-    ))
+func create_proposal_wrapper{syscall_ptr : felt*, range_check_ptr}(proposal_id: felt, description: felt, deadline: felt):
+    create_proposal(proposal_id, description, deadline)
     return ()
 
 func is_valid_deadline(deadline: felt) -> (is_valid: felt):
