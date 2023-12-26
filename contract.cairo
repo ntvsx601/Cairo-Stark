@@ -41,6 +41,8 @@ func proposals(proposal_id: felt) -> (res: Proposal):
 
 func register_voter{syscall_ptr : felt*, range_check_ptr}(voter_id: felt):
     # Implementation for registering a voter
+    # Add additional verification logic here
+    # Ensure voter_id meets certain criteria or is verified through an external system
     ...
 
 func create_proposal{syscall_ptr : felt*, range_check_ptr}(proposal_id: felt):
