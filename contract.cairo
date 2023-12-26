@@ -56,6 +56,10 @@ func vote{syscall_ptr : felt*, range_check_ptr}(voter_id: felt, proposal_id: fel
 
     # Modify voting logic to allow selection from multiple options
     # Update vote counting to accommodate multiple options
+
+
+    # Add logic to update vote tally in real-time
+    # Ensure vote tally is updated securely and accurately
     ...
 
 func tally_votes{syscall_ptr : felt*, range_check_ptr}() -> (winning_proposal_id: felt):
