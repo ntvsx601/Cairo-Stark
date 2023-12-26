@@ -42,6 +42,41 @@ func proposals(proposal_id: felt) -> (res: Proposal):
     ...
 
 
+
+func create_proposal{syscall_ptr : felt*, range_check_ptr}(proposal_id: felt, description: felt, deadline: felt):
+    # Check if the proposal already exists
+    let (proposal) = proposals.read(proposal_id=proposal_id)
+    if proposal.id != 0:
+        return ()
+
+   # Validate the deadline
+   if not is_valid_deadline(deadline):
+       # Handle invalid deadline case
+       return ()
+
+    # Create the proposal
+    proposals.write(proposal_id=proposal_id, value=Proposal(
+        id=proposal_id,
+        vote_count=0,
+        description=description,
+        deadline=deadline,
+    ))
+    return ()
+
+func is_valid_deadline(deadline: felt) -> (is_valid: felt):
+   # Deadline validation logic here
+   # Example: Check if deadline is in the future
+   let (current_time) = get_current_timestamp()
+   if deadline > current_time:
+       return (1,)
+   return (0,)
+
+func get_current_timestamp() -> (timestamp: felt):
+   # Logic to obtain the current timestamp
+   # Placeholder for demonstration purposes
+   return (20230320,)  # YYYYMMDD format
+
+
 func register_voter{syscall_ptr : felt*, range_check_ptr}(voter_id: felt):
     # Check if the voter is already registered
     let (voter) = voters.read(voter_id=voter_id)
