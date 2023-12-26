@@ -53,6 +53,9 @@ func create_proposal{syscall_ptr : felt*, range_check_ptr}(proposal_id: felt):
 
 func vote{syscall_ptr : felt*, range_check_ptr}(voter_id: felt, proposal_id: felt):
     # Implementation for casting a vote
+
+    # Modify voting logic to allow selection from multiple options
+    # Update vote counting to accommodate multiple options
     ...
 
 func tally_votes{syscall_ptr : felt*, range_check_ptr}() -> (winning_proposal_id: felt):
