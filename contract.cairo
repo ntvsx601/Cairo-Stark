@@ -41,6 +41,7 @@ func voters(voter_id: felt) -> (res: Voter):
 func proposals(proposal_id: felt) -> (res: Proposal):
     ...
 
+
 func register_voter{syscall_ptr : felt*, range_check_ptr}(voter_id: felt):
     # Check if the voter is already registered
     let (voter) = voters.read(voter_id=voter_id)
