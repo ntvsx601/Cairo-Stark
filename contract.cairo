@@ -42,9 +42,33 @@ func proposals(proposal_id: felt) -> (res: Proposal):
     ...
 
 func register_voter{syscall_ptr : felt*, range_check_ptr}(voter_id: felt):
-    # Implementation for registering a voter
-    # Add additional verification logic here
-    # Ensure voter_id meets certain criteria or is verified through an external system
+    # Check if the voter is already registered
+    let (voter) = voters.read(voter_id=voter_id)
+    if voter.is_registered != 0:
+        return ()
+
+   # Implement eligibility verification
+   # This can include checks like age, membership status, or other criteria
+   # For demonstration, assuming a simple check based on voter_id
+   if not is_eligible_voter(voter_id):
+       # Handle ineligible voter case
+       return ()
+
+    # Register the voter
+    voters.write(voter_id=voter_id, value=Voter(
+        is_registered=1,
+        has_voted=0,
+        voted_proposal_id=0,
+    ))
+    return ()
+
+func is_eligible_voter(voter_id: felt) -> (is_eligible: felt):
+   # Eligibility logic here
+   # Returning 1 for eligible, 0 for ineligible
+   # Example: Check if voter_id is within a certain range
+   if voter_id > 1000 and voter_id < 5000:
+       return (1,)
+   return (0,)
     ...
 
 func create_proposal{syscall_ptr : felt*, range_check_ptr}(proposal_id: felt):
