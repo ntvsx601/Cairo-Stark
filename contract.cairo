@@ -57,6 +57,9 @@ func vote{syscall_ptr : felt*, range_check_ptr}(voter_id: felt, proposal_id: fel
     # Modify voting logic to allow selection from multiple options
     # Update vote counting to accommodate multiple options
 
+    # Implement additional security measures to protect voter identity
+    # Ensure that the vote is recorded without compromising voter anonymity
+
 
     # Add logic to update vote tally in real-time
     # Ensure vote tally is updated securely and accurately
